@@ -3,14 +3,13 @@ package com.daniel.belmonte.ContactApiRestBackend.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-@EntityScan
+@Entity
 @Table(name="contacto")
 public class ContactoEntity implements Serializable {
 	/**
@@ -19,21 +18,22 @@ public class ContactoEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int contactoId;
+	private int contacto_id;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
 	private int telefono;
 	private String direccion;
-	private int codigoPostal;
+	private int codigo_postal;
 	private String ciudad;
 	private String email;
-	private Date lastUpdate;
+	private Date last_update;
+	
 	public int getContactoId() {
-		return contactoId;
+		return contacto_id;
 	}
-	public void setContactoId(int contactoId) {
-		this.contactoId = contactoId;
+	public void setContactoId(int contacto_id) {
+		this.contacto_id = contacto_id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -66,10 +66,10 @@ public class ContactoEntity implements Serializable {
 		this.direccion = direccion;
 	}
 	public int getCodigoPostal() {
-		return codigoPostal;
+		return codigo_postal;
 	}
-	public void setCodigoPostal(int codigoPostal) {
-		this.codigoPostal = codigoPostal;
+	public void setCodigoPostal(int codigo_postal) {
+		this.codigo_postal = codigo_postal;
 	}
 	public String getCiudad() {
 		return ciudad;
@@ -84,9 +84,9 @@ public class ContactoEntity implements Serializable {
 		this.email = email;
 	}
 	public Date getLastUpdate() {
-		return lastUpdate;
+		return last_update;
 	}
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setLastUpdate(Date last_update) {
+		this.last_update = last_update;
 	}
 }
