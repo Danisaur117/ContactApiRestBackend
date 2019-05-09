@@ -35,6 +35,11 @@ public class ContactoEntityService implements ContactoEntityInterface {
 	
 	@Override
 	public List<ContactoEntity> getEntityByNombre(String nombre){
-		return this.repository.findByNombre(nombre);
+		return this.repository.findByNombreContaining(nombre);
+	}
+	
+	@Override
+	public List<ContactoEntity> getEntityByApellidos(String apellido1, String apellido2){
+		return this.repository.findByApellido1ContainingOrApellido2Containing(apellido1, apellido2);
 	}
 }

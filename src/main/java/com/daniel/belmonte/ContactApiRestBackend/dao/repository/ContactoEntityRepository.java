@@ -9,5 +9,6 @@ import com.daniel.belmonte.ContactApiRestBackend.dao.entity.ContactoEntity;
 
 @Repository
 public interface ContactoEntityRepository extends CrudRepository<ContactoEntity, Integer> {
-	public List<ContactoEntity> findByNombre(String nombre);
+	public List<ContactoEntity> findByNombreContaining(String nombre);
+	public List<ContactoEntity> findByApellido1ContainingOrApellido2Containing(String apellido1, String apellido2);
 }

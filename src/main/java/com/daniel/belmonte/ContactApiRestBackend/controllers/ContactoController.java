@@ -33,4 +33,13 @@ public class ContactoController {
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="contactos/ap/{apellido}", method=RequestMethod.GET, produces="application/json")
+	public ResponseEntity<List<ContactoEntity>> getContactoByApellidos(@PathVariable String apellido){
+		List<ContactoEntity> list = contactoService.getEntityByApellidos(apellido, apellido);
+		
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }
