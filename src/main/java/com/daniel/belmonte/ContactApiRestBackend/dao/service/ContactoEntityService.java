@@ -32,4 +32,9 @@ public class ContactoEntityService implements ContactoEntityInterface {
 		this.repository.findAll().forEach(e -> list.add(e));
 		return list;
 	}
+	
+	@Override
+	public List<ContactoEntity> getEntityByNombre(String nombre){
+		return this.repository.findByNombre(nombre);
+	}
 }
