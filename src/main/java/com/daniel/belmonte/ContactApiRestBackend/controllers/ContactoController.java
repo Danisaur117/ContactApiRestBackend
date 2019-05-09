@@ -31,7 +31,7 @@ public class ContactoController {
 	public ResponseEntity<List<ContactoEntity>> getContactoByNombre(@PathVariable String nombre){
 		List<ContactoEntity> list = contactoService.getEntityByNombre(nombre);
 		
-		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -40,7 +40,7 @@ public class ContactoController {
 	public ResponseEntity<List<ContactoEntity>> getContactoByApellidos(@PathVariable String apellido){
 		List<ContactoEntity> list = contactoService.getEntityByApellidos(apellido, apellido);
 		
-		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -49,7 +49,7 @@ public class ContactoController {
 	public ResponseEntity<List<ContactoEntity>> getContactoByNombreYApellidos(@PathVariable String nombre, @PathVariable String apellido1, @PathVariable String apellido2){
 		List<ContactoEntity> list = contactoService.getEntityByNombreYApellidos(nombre, apellido1, apellido2);
 		
-		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -63,5 +63,27 @@ public class ContactoController {
 		if(contacto == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="contactos/{nombre}/{apellido1}/{apellido2}", method=RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<ContactoEntity> modifyContacto(@PathVariable String nombre, @PathVariable String apellido1, @PathVariable String apellido2, @RequestBody ContactoEntity contacto){
+		List<ContactoEntity> list = contactoService.getEntityByNombreYApellidos(nombre, apellido1, apellido2);
+		
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		if(list.size() > 1) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		
+		ContactoEntity contactoRes = list.get(0);
+		if(contacto.getNombre() != null) contactoRes.setNombre(contacto.getNombre());
+		if(contacto.getApellido1() != null) contactoRes.setApellido1(contacto.getApellido1());
+		if(contacto.getApellido2() != null) contactoRes.setApellido2(contacto.getApellido2());
+		if(contacto.getTelefono() != 0) contactoRes.setTelefono(contacto.getTelefono());
+		if(contacto.getDireccion() != null) contactoRes.setDireccion(contacto.getDireccion());
+		if(contacto.getCodigoPostal() != 0) contactoRes.setCodigoPostal(contacto.getCodigoPostal());
+		if(contacto.getCiudad() != null) contactoRes.setCiudad(contacto.getCiudad());
+		if(contacto.getEmail() != null) contactoRes.setEmail(contacto.getEmail());
+		Boolean updated = contactoService.updateEntity(contactoRes);
+		
+		return (updated)? new ResponseEntity<>(contactoRes, HttpStatus.OK):
+			  			  new ResponseEntity<>(contactoRes, HttpStatus.CONFLICT);
 	}
 }

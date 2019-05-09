@@ -58,4 +58,16 @@ public class ContactoEntityService implements ContactoEntityInterface {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean updateEntity(ContactoEntity contacto) {
+		try {
+			this.repository.save(contacto);
+			return true;
+		}
+		catch(Exception ex) {
+//			ex.printStackTrace();
+			return false;
+		}
+	}
 }
