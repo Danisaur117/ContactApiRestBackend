@@ -47,4 +47,15 @@ public class ContactoEntityService implements ContactoEntityInterface {
 	public List<ContactoEntity> getEntityByNombreYApellidos(String nombre, String apellido1, String apellido2){
 		return this.repository.findByNombreAndApellido1AndApellido2(nombre, apellido1, apellido2);
 	}
+	
+	@Override
+	public ContactoEntity addEntity(ContactoEntity contacto) {
+		try {
+			return this.repository.save(contacto);
+		}
+		catch(Exception ex) {
+//			ex.printStackTrace();
+			return null;
+		}
+	}
 }

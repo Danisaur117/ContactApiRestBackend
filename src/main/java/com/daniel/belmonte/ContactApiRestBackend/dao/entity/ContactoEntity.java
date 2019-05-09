@@ -29,6 +29,18 @@ public class ContactoEntity implements Serializable {
 	private String email;
 	private Date last_update;
 	
+	public ContactoEntity() {
+		
+	}
+	
+	public ContactoEntity(String nombre, String apellido1, String apellido2, int telefono) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.telefono = telefono;
+		this.last_update = new Date();
+	}
+	
 	public int getContactoId() {
 		return contacto_id;
 	}

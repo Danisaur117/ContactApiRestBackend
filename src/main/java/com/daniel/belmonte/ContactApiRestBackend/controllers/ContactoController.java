@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.daniel.belmonte.ContactApiRestBackend.dao.entity.ContactoEntity;
 import com.daniel.belmonte.ContactApiRestBackend.dao.service.ContactoEntityService;
@@ -50,5 +52,16 @@ public class ContactoController {
 		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="contactos", method=RequestMethod.POST)
+	public ResponseEntity<Void> addContacto(@RequestBody ContactoEntity contacto, UriComponentsBuilder builder){
+		ContactoEntity contactoEntity = new ContactoEntity(contacto.getNombre(), contacto.getApellido1(),
+														   contacto.getApellido2(), contacto.getTelefono());
+		contacto = contactoService.addEntity(contactoEntity);
+		
+		if(contacto == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
