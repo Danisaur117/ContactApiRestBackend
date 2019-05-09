@@ -42,4 +42,13 @@ public class ContactoController {
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="contactos/{nombre}/{apellido1}/{apellido2}", method=RequestMethod.GET, produces="application/json")
+	public ResponseEntity<List<ContactoEntity>> getContactoByNombreYApellidos(@PathVariable String nombre, @PathVariable String apellido1, @PathVariable String apellido2){
+		List<ContactoEntity> list = contactoService.getEntityByNombreYApellidos(nombre, apellido1, apellido2);
+		
+		if(list == null) return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

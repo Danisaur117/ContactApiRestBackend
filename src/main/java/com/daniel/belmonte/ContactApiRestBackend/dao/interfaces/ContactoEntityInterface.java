@@ -8,4 +8,5 @@ public interface ContactoEntityInterface {
 	public List<ContactoEntity> getAllEntities();
 	public List<ContactoEntity> getEntityByNombre(String nombre);
 	public List<ContactoEntity> getEntityByApellidos(String apellido1, String apellido2);
+	public List<ContactoEntity> getEntityByNombreYApellidos(String nombre, String apellido1, String apellido2);
 }
